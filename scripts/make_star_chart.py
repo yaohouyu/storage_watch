@@ -21,7 +21,8 @@ OUT = pathlib.Path(__file__).resolve().parents[1] / "site/assets/stars.svg"
 
 def api(url: str) -> object | None:
     headers = {
-        "Accept": "application/vnd.github+json",
+        # star+json adds `starred_at`, needed to draw a curve rather than a flat count.
+        "Accept": "application/vnd.github.star+json",
         "User-Agent": "storage-watch-star-chart",
     }
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
