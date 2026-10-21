@@ -14,6 +14,14 @@ final class Engine: ObservableObject {
     private var stdoutBuffer = Data()
     private var restartAttempts = 0
     private var runtimeFile: URL { dataDir.appendingPathComponent("runtime.json") }
+
+    /// Identifies the running bundle so a newly installed version never adopts
+    /// the previous version's engine process.
+    static var bundleRelease: String {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0"
+        return "\(version)+\(build)"
+    }
     private var dataDir: URL {
         let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         return support.appendingPathComponent("StorageWatch", isDirectory: true)
@@ -73,6 +81,7 @@ final class Engine: ObservableObject {
 
         // Reuse an engine that is already serving this data directory (e.g. app relaunch).
         if let info = try? JSONDecoder().decode(RuntimeInfo.self, from: Data(contentsOf: runtimeFile)),
+           info.release == Self.bundleRelease,
            let url = URL(string: "http://127.0.0.1:\(info.port)"),
            let session: SessionInfo = try? synchronousGet(url.appendingPathComponent("api/session")),
            session.token.isEmpty == false {
@@ -94,6 +103,7 @@ final class Engine: ObservableObject {
         // Fixed private port with fallback; the engine writes the actual port to runtime.json.
         task.arguments = [script.path, "--port", "8791", "--auto-port",
                           "--data-dir", dataDir.path,
+                          "--release", Self.bundleRelease,
                           "--parent-pid", String(ProcessInfo.processInfo.processIdentifier)]
         let pipe = Pipe()
         task.standardOutput = pipe
@@ -221,5 +231,10 @@ final class Engine: ObservableObject {
     }
 }
 
-private struct RuntimeInfo: Decodable { let pid: Int; let port: Int }
+private struct RuntimeInfo: Decodable {
+    let pid: Int
+    let port: Int
+    // Absent for engines started by builds before this field existed.
+    let release: String?
+}
 private struct SessionInfo: Decodable { let token: String }

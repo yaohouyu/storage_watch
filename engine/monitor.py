@@ -485,6 +485,7 @@ def main():
     parser.add_argument("--auto-port", action="store_true", help="默认端口被占用时选择其他本机端口")
     parser.add_argument("--background-log", action="store_true", help="由采集器自身打开本地日志")
     parser.add_argument("--parent-pid", type=int, help="父应用退出时自动停止采集器")
+    parser.add_argument("--release", help="采集器所属应用版本标识")
     args = parser.parse_args()
     args.data_dir.mkdir(parents=True, exist_ok=True)
     if args.background_log:
@@ -515,7 +516,8 @@ def main():
         server = LocalHTTPServer(("127.0.0.1", 0), Handler)
     server.monitor, server.token = monitor, secrets.token_urlsafe(32)
     runtime = args.data_dir / "runtime.json"
-    runtime.write_text(json.dumps({"pid": os.getpid(), "port": server.server_port}))
+    runtime.write_text(json.dumps({"pid": os.getpid(), "port": server.server_port,
+                                   "release": args.release}))
     scheduler = threading.Thread(target=monitor.schedule, daemon=True)
     scheduler.start()
 
