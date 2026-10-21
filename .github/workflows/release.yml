@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build app with embedded Python
+        run: |
+          cd app
+          SDKROOT="$(xcrun --show-sdk-path)" ./build-app.sh
+          VERSION="${GITHUB_REF_NAME#v}"
+          cd ..
+          mkdir -p dist
+          ditto -c -k --keepParent "app/build/Storage Watch.app" "dist/StorageWatch-${VERSION}.zip"
+          shasum -a 256 "dist/StorageWatch-${VERSION}.zip" | cut -d' ' -f1 > "dist/StorageWatch-${VERSION}.zip.sha256"
+          cat "dist/StorageWatch-${VERSION}.zip.sha256"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/StorageWatch-*.zip
+            dist/StorageWatch-*.zip.sha256
+          generate_release_notes: true

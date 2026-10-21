@@ -3,14 +3,13 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var engine: Engine
     @EnvironmentObject var store: Store
+    @StateObject private var updater = UpdateChecker.shared
 
     @State private var rootsText = ""
     @State private var interval = 60
     @State private var maxDepth = 6
     @State private var alertGb = 5.0
     @State private var notifications = false
-    @State private var updateStatus: String?
-    @State private var checkingUpdate = false
 
     var body: some View {
         TabView {
@@ -19,7 +18,7 @@ struct SettingsView: View {
             aboutTab
                 .tabItem { Label("关于与更新", systemImage: "info.circle") }
         }
-        .frame(width: 480, height: 340)
+        .frame(width: 500, height: 380)
         .onAppear(perform: load)
     }
 
@@ -46,26 +45,85 @@ struct SettingsView: View {
     }
 
     private var aboutTab: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 12) {
             Image(systemName: "chart.bar.doc.horizontal")
-                .font(.system(size: 44))
+                .font(.system(size: 40))
                 .foregroundStyle(.tint)
             Text("Storage Watch").font(.title2.weight(.semibold))
-            Text("版本 \(UpdateChecker.currentVersion)")
-                .foregroundStyle(.secondary)
+            Text("版本 \(UpdateChecker.currentVersion)").foregroundStyle(.secondary)
             Text("本机空间变化记录：不上传文件、不读取文件内容、不自动删除文件。")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-            Button(checkingUpdate ? "正在检查…" : "检查更新") { checkUpdate() }
-                .disabled(checkingUpdate)
-            if let updateStatus {
-                Text(updateStatus).font(.caption).foregroundStyle(.secondary)
-            }
+                .padding(.horizontal, 36)
+
+            updateSection
             Spacer()
+            HStack(spacing: 12) {
+                Link("GitHub", destination: URL(string: "https://github.com/\(UpdateChecker.repository)")!)
+                Text("·").foregroundStyle(.tertiary)
+                Link("问题反馈", destination: URL(string: "https://github.com/\(UpdateChecker.repository)/issues")!)
+            }
+            .font(.caption)
         }
         .padding(20)
+    }
+
+    @ViewBuilder
+    private var updateSection: some View {
+        switch updater.state {
+        case .idle:
+            Button("检查更新") { Task { await updater.check() } }
+        case .checking:
+            HStack(spacing: 8) {
+                ProgressView().controlSize(.small)
+                Text("正在检查…").font(.caption).foregroundStyle(.secondary)
+            }
+        case .upToDate:
+            VStack(spacing: 6) {
+                Label("已是最新版本", systemImage: "checkmark.circle.fill")
+                    .foregroundStyle(.green)
+                    .font(.callout)
+                Button("重新检查") { Task { await updater.check() } }
+                    .buttonStyle(.link)
+            }
+        case .available(let version, let notes):
+            VStack(spacing: 8) {
+                Label("发现新版本 \(version)", systemImage: "arrow.down.circle.fill")
+                    .font(.callout.weight(.medium))
+                if !notes.isEmpty {
+                    ScrollView {
+                        Text(notes)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .frame(maxHeight: 90)
+                    .padding(8)
+                    .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 6))
+                }
+                Button("下载并安装") { Task { await updater.install() } }
+                    .buttonStyle(.borderedProminent)
+            }
+        case .downloading(let progress):
+            VStack(spacing: 6) {
+                ProgressView(value: progress) { Text("正在下载更新…") }
+                    .frame(width: 240)
+                Text("\(Int(progress * 100))%").font(.caption2).foregroundStyle(.secondary)
+            }
+        case .installing:
+            HStack(spacing: 8) {
+                ProgressView().controlSize(.small)
+                Text("正在安装，应用将自动重启…").font(.caption)
+            }
+        case .failed(let message):
+            VStack(spacing: 6) {
+                Label(message, systemImage: "exclamationmark.triangle")
+                    .font(.caption)
+                    .foregroundStyle(.orange)
+                Button("重试") { Task { await updater.check() } }
+            }
+        }
     }
 
     private func load() {
@@ -86,23 +144,5 @@ struct SettingsView: View {
         config.alertGb = alertGb
         config.notifications = notifications
         store.saveSettings(config)
-    }
-
-    private func checkUpdate() {
-        checkingUpdate = true
-        updateStatus = nil
-        Task {
-            let result = await UpdateChecker.check()
-            checkingUpdate = false
-            switch result {
-            case .upToDate:
-                updateStatus = "已是最新版本"
-            case .available(let release):
-                updateStatus = "发现新版本 \(release.tagName)"
-                NSWorkspace.shared.open(release.htmlURL)
-            case .failed(let message):
-                updateStatus = "检查失败：\(message)"
-            }
-        }
     }
 }

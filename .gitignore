@@ -9,3 +9,9 @@ app/build/
 
 # Generated app icon assets
 app/Resources/AppIcon.iconset/
+
+# Build caches and local previews
+app/build/cache/
+dist/
+*.zip.sha256
+site/assets/hero-source.png

@@ -35,6 +35,22 @@ final class Engine: ObservableObject {
     }
 
     private func pythonInterpreter() -> String? {
+        // Preferred: the runtime embedded in the app bundle, so users need no Python install.
+        if let bundled = Bundle.main.resourceURL?
+            .appendingPathComponent("python/bin/python3", isDirectory: false),
+           FileManager.default.isExecutableFile(atPath: bundled.path) {
+            return bundled.path
+        }
+        // Development fallback: repo-local runtime downloaded by build-app.sh --bundle-python.
+        let sourceRoot = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent() // StorageWatch
+            .deletingLastPathComponent() // Sources
+            .deletingLastPathComponent() // app
+        for candidate in ["Resources/python/bin/python3", "../Resources/python/bin/python3"] {
+            let path = sourceRoot.appendingPathComponent(candidate).path
+            if FileManager.default.isExecutableFile(atPath: path) { return path }
+        }
+        // Last resort: a system/Homebrew Python for development builds only.
         let candidates = ["/opt/homebrew/bin/python3", "/usr/local/bin/python3", "/usr/bin/python3"]
         for path in candidates where FileManager.default.isExecutableFile(atPath: path) {
             let task = Process()

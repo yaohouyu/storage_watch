@@ -14,20 +14,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run tests
-        run: python3 -m unittest discover -s tests -v
+      - run: python3 -m unittest discover -s tests -v
 
   app:
     name: Build app
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
-      - name: Build
+      - name: Build with embedded Python
         run: |
           cd app
-          SDKROOT="$(xcrun --show-sdk-path)" bash build-app.sh
-      - name: Upload app
-        uses: actions/upload-artifact@v4
+          SDKROOT="$(xcrun --show-sdk-path)" ./build-app.sh
+      - uses: actions/upload-artifact@v4
         with:
           name: StorageWatch-app
           path: app/build/Storage Watch.app
