@@ -1,0 +1,11 @@
+data/
+__pycache__/
+*.pyc
+.DS_Store
+
+# macOS app build artifacts
+app/.build/
+app/build/
+
+# Generated app icon assets
+app/Resources/AppIcon.iconset/
