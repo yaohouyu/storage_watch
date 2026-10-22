@@ -10,7 +10,7 @@ import AppKit
 /// Only a bundle that passes `codesign --verify --deep --strict` is installed.
 @MainActor
 final class UpdateChecker: ObservableObject {
-    static let repository = "yaohouyuterry/storage_watch"
+    static let repository = "yaohouyu/storage_watch"
     static let shared = UpdateChecker()
 
     enum State: Equatable {

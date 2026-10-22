@@ -9,10 +9,10 @@
 **每小时记录一次目录占用，回答"今天哪个目录突然变大了"。**<br>
 菜单栏常驻，原生 SwiftUI，数据只留在本机。
 
-[![Release](https://img.shields.io/github/v/release/yaohouyuterry/storage_watch?label=release&color=111111)](https://github.com/yaohouyuterry/storage_watch/releases/latest) [![Stars](https://img.shields.io/github/stars/yaohouyuterry/storage_watch?style=flat&color=111111)](https://github.com/yaohouyuterry/storage_watch/stargazers) [![License](https://img.shields.io/badge/license-MIT-111111)](LICENSE)<br>
+[![Release](https://img.shields.io/github/v/release/yaohouyu/storage_watch?label=release&color=111111)](https://github.com/yaohouyu/storage_watch/releases/latest) [![Stars](https://img.shields.io/github/stars/yaohouyu/storage_watch?style=flat&color=111111)](https://github.com/yaohouyu/storage_watch/stargazers) [![License](https://img.shields.io/badge/license-MIT-111111)](LICENSE)<br>
 ![macOS](https://img.shields.io/badge/macOS-13%2B-000000?logo=apple&logoColor=white) ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-arm64-000000?logo=apple&logoColor=white) ![No dependencies](https://img.shields.io/badge/Python-embedded-3776AB?logo=python&logoColor=white)
 
-**[下载](https://github.com/yaohouyuterry/storage_watch/releases/latest)** &nbsp;·&nbsp; **[更新日志](https://github.com/yaohouyuterry/storage_watch/releases)** &nbsp;·&nbsp; **[问题反馈](https://github.com/yaohouyuterry/storage_watch/issues)** &nbsp;·&nbsp; **简体中文**
+**[下载](https://github.com/yaohouyu/storage_watch/releases/latest)** &nbsp;·&nbsp; **[更新日志](https://github.com/yaohouyu/storage_watch/releases)** &nbsp;·&nbsp; **[问题反馈](https://github.com/yaohouyu/storage_watch/issues)** &nbsp;·&nbsp; **简体中文**
 
 <img src="site/assets/hero.png" width="900" alt="Storage Watch 主窗口：磁盘可用空间、趋势图与目录变化排行">
 
@@ -34,7 +34,7 @@ Storage Watch 每小时安静地记录一份目录占用清单。等空间莫名
 
 ## 安装
 
-从 **[Releases](https://github.com/yaohouyuterry/storage_watch/releases/latest)** 下载 `StorageWatch-<版本>.zip`，解压后拖进「应用程序」。
+从 **[Releases](https://github.com/yaohouyu/storage_watch/releases/latest)** 下载 `StorageWatch-<版本>.zip`，解压后拖进「应用程序」。
 
 **不需要安装 Python。** 采集引擎的 Python 运行时已经打包在 app 内，首次打开即可用。
 
@@ -114,7 +114,7 @@ Swift 只负责界面，扫描留在 Python 标准库里——这部分经过 18
 ## 开发
 
 ```bash
-git clone https://github.com/yaohouyuterry/storage_watch.git
+git clone https://github.com/yaohouyu/storage_watch.git
 cd storage_watch
 
 # 运行引擎测试
@@ -177,7 +177,7 @@ gh release create v1.1.0 "/tmp/StorageWatch-1.1.0.zip" "/tmp/StorageWatch-1.1.0.
 
 ## Star 历史
 
-<a href="https://github.com/yaohouyuterry/storage_watch/stargazers">
+<a href="https://github.com/yaohouyu/storage_watch/stargazers">
   <img src="site/assets/stars.svg" width="900" alt="Star 历史曲线">
 </a>
 

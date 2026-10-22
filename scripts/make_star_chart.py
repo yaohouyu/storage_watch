@@ -15,7 +15,7 @@ import os
 import pathlib
 import urllib.request
 
-REPO = os.environ.get("STAR_CHART_REPO", "yaohouyuterry/storage_watch")
+REPO = os.environ.get("STAR_CHART_REPO", "yaohouyu/storage_watch")
 OUT = pathlib.Path(__file__).resolve().parents[1] / "site/assets/stars.svg"
 
 
