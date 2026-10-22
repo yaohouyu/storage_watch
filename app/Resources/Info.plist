@@ -5,7 +5,7 @@
 	<key>CFBundleName</key>
 	<string>Storage Watch</string>
 	<key>CFBundleDisplayName</key>
-	<string>存储空间看板</string>
+	<string>Storage Watch</string>
 	<key>CFBundleIdentifier</key>
 	<string>local.storagewatch.app</string>
 	<key>CFBundleVersion</key>

@@ -26,7 +26,7 @@ final class WindowController {
             backing: .buffered,
             defer: false
         )
-        window.title = "存储空间看板"
+        window.title = "Storage Watch"
         window.titlebarAppearsTransparent = false
         window.titleVisibility = .visible
         window.isReleasedWhenClosed = false

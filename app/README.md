@@ -1,4 +1,4 @@
-# Storage Watch（存储空间看板 · macOS App）
+# Storage Watch (macOS App)
 
 菜单栏常驻的 Mac 空间账本。SwiftUI 外壳 + 本机 Python 采集引擎（`../engine/monitor.py`），
 数据只保存在本机 `~/Library/Application Support/StorageWatch`。

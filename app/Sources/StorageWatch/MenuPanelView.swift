@@ -22,7 +22,7 @@ struct MenuPanelView: View {
     private var header: some View {
         HStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("存储空间看板").font(.headline)
+                Text("Storage Watch").font(.headline)
                 Text(statusLine)
                     .font(.caption)
                     .foregroundStyle(.secondary)

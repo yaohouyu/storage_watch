@@ -290,7 +290,7 @@ class Monitor:
                 if growth and growth["delta"] >= config["alert_gb"] * 1e9:
                     message = f'{Path(growth["path"]).name} 增长了 {growth["delta"] / 1e9:.1f} GB，请打开看板查看。'
                     # Pass message as argv, never interpolate filesystem paths into AppleScript.
-                    script = 'on run argv\ndisplay notification (item 1 of argv) with title "存储空间看板"\nend run'
+                    script = 'on run argv\ndisplay notification (item 1 of argv) with title "Storage Watch"\nend run'
                     try:
                         subprocess.run(["/usr/bin/osascript", "-e", script, message], timeout=10,
                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -538,7 +538,7 @@ def main():
         threading.Thread(target=server.shutdown, daemon=True).start()
     signal.signal(signal.SIGTERM, shutdown)
     signal.signal(signal.SIGINT, shutdown)
-    print(f"存储空间看板：http://127.0.0.1:{server.server_port}", flush=True)
+    print(f"Storage Watch: http://127.0.0.1:{server.server_port}", flush=True)
     try:
         server.serve_forever(poll_interval=0.5)
     finally:
