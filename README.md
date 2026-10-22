@@ -4,33 +4,29 @@
 
 # Storage Watch
 
-### 让每一 GB 都有迹可循。
-
-**每小时记录一次目录占用，回答"今天哪个目录突然变大了"。**<br>
-菜单栏常驻，原生 SwiftUI，数据只留在本机。
+**记录目录占用历史，定位空间增长。**<br>
+菜单栏应用，使用 SwiftUI 编写，数据保存在本机。
 
 [![Release](https://img.shields.io/github/v/release/yaohouyu/storage_watch?label=release&color=111111)](https://github.com/yaohouyu/storage_watch/releases/latest) [![Stars](https://img.shields.io/github/stars/yaohouyu/storage_watch?style=flat&color=111111)](https://github.com/yaohouyu/storage_watch/stargazers) [![License](https://img.shields.io/badge/license-MIT-111111)](LICENSE)<br>
 ![macOS](https://img.shields.io/badge/macOS-13%2B-000000?logo=apple&logoColor=white) ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-arm64-000000?logo=apple&logoColor=white) ![No dependencies](https://img.shields.io/badge/Python-embedded-3776AB?logo=python&logoColor=white)
 
 **[下载](https://github.com/yaohouyu/storage_watch/releases/latest)** &nbsp;·&nbsp; **[更新日志](https://github.com/yaohouyu/storage_watch/releases)** &nbsp;·&nbsp; **[问题反馈](https://github.com/yaohouyu/storage_watch/issues)** &nbsp;·&nbsp; **简体中文**
 
-<img src="site/assets/hero.png" width="900" alt="Storage Watch 主窗口：磁盘可用空间、趋势图与目录变化排行">
-
 </div>
 
 <br>
 
-## 为什么需要它
+## 用途
 
-macOS 的「储存空间」只会告诉你 **系统数据占了 60 GB**，却不会告诉你是哪个目录、从什么时候开始涨的。
+macOS 的「储存空间」会给出各类数据的总量，但不会指出具体是哪个目录发生了变化。
 
-Storage Watch 每小时安静地记录一份目录占用清单。等空间莫名少了几十 GB，你可以直接看到：
+Storage Watch 按固定间隔扫描指定目录，保存每次快照，并比较相邻记录。磁盘空间减少时，可以查看增长最多的目录和变化时间。
 
-- **哪个目录变大了**，按增量排序，精确到路径
-- **什么时候开始涨的**，用 24 小时 / 7 天 / 30 天的趋势回看
-- **对比谁**：上一次记录、今天零点、或最近 7 天
+- 按增量列出目录，并显示完整路径
+- 用 24 小时、7 天或 30 天趋势查看变化
+- 与上次记录、当天零点或最近 7 天对比
 
-它不删文件、不碰文件内容、不联网上传任何路径。你只是终于有了账本。
+应用不删除文件，不读取文件内容，也不上传路径。
 
 ## 安装
 
