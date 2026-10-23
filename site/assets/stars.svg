@@ -1,5 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340">
+<defs>
+  <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5FD1A8" stop-opacity="0.38"/>
+    <stop offset="1" stop-color="#5FD1A8" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#5FD1A8"/><stop offset="1" stop-color="#9FE3C9"/>
+  </linearGradient>
+</defs>
 <rect width="100%" height="100%" rx="16" fill="#0D1411"/>
-<text x="450.0" y="160.0" text-anchor="middle" fill="#E8FFF6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="22" font-weight="600">等待第一颗星</text>
-<text x="450.0" y="192.0" text-anchor="middle" fill="#7FA694" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="14">github.com/yaohouyu/storage_watch</text>
+<line x1="58" y1="294.0" x2="876" y2="294.0" stroke="#26332D"/><text x="46" y="298.0" text-anchor="end" fill="#6E8A7D" font-size="11">0</text><line x1="58" y1="242.0" x2="876" y2="242.0" stroke="#26332D"/><text x="46" y="246.0" text-anchor="end" fill="#6E8A7D" font-size="11">1</text><line x1="58" y1="190.0" x2="876" y2="190.0" stroke="#26332D"/><text x="46" y="194.0" text-anchor="end" fill="#6E8A7D" font-size="11">2</text><line x1="58" y1="138.0" x2="876" y2="138.0" stroke="#26332D"/><text x="46" y="142.0" text-anchor="end" fill="#6E8A7D" font-size="11">3</text><line x1="58" y1="86.0" x2="876" y2="86.0" stroke="#26332D"/><text x="46" y="90.0" text-anchor="end" fill="#6E8A7D" font-size="11">4</text><line x1="58" y1="34.0" x2="876" y2="34.0" stroke="#26332D"/><text x="46" y="38.0" text-anchor="end" fill="#6E8A7D" font-size="11">5</text>
+<polygon points="58,294 58.0,242.0 58.0,294" fill="url(#fill)"/>
+<polyline points="58.0,242.0" fill="none" stroke="url(#stroke)" stroke-width="2.5"
+          stroke-linejoin="round" stroke-linecap="round"/>
+<text x="58.0" y="324" text-anchor="middle" fill="#6E8A7D" font-size="11">2026-10-22</text><text x="262.5" y="324" text-anchor="middle" fill="#6E8A7D" font-size="11">2026-10-22</text><text x="467.0" y="324" text-anchor="middle" fill="#6E8A7D" font-size="11">2026-10-22</text><text x="671.5" y="324" text-anchor="middle" fill="#6E8A7D" font-size="11">2026-10-23</text><text x="876.0" y="324" text-anchor="middle" fill="#6E8A7D" font-size="11">2026-10-23</text>
+<text x="58" y="22" fill="#E8FFF6" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600">1 stars</text>
 </svg>
